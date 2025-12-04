@@ -71,16 +71,18 @@ export default function HomePage() {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
         <LoadingComponent
-          className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-xl text-center"
+          className="bg-white border-gray-200 dark:bg-white/10 dark:border-white/20 backdrop-blur-md border rounded-2xl p-8 shadow-xl text-center"
           {...(!reducedMotion && {
             ...fadeIn,
             initial: "initial",
             animate: "animate",
           })}
         >
-          <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-white text-lg">Detecting your location...</p>
-          <p className="text-white/60 text-sm mt-2">
+          <div className="w-16 h-16 border-4 border-gray-300 border-t-blue-600 dark:border-white/30 dark:border-t-white rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-900 dark:text-white text-lg">
+            Detecting your location...
+          </p>
+          <p className="text-gray-600 dark:text-white/60 text-sm mt-2">
             This may take a few seconds
           </p>
         </LoadingComponent>
@@ -91,9 +93,9 @@ export default function HomePage() {
   if (geoError && !selectedLocation) {
     return (
       <div className="flex flex-col justify-center items-center min-h-[400px] space-y-6">
-        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-xl text-center max-w-md">
+        <div className="bg-white border-gray-200 dark:bg-white/10 dark:border-white/20 backdrop-blur-md border rounded-2xl p-8 shadow-xl text-center max-w-md">
           <svg
-            className="w-16 h-16 text-red-300 mx-auto mb-4"
+            className="w-16 h-16 text-red-600 dark:text-red-300 mx-auto mb-4"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -105,22 +107,22 @@ export default function HomePage() {
               d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
             />
           </svg>
-          <p className="text-red-300 text-lg mb-2 font-semibold">
+          <p className="text-red-600 dark:text-red-300 text-lg mb-2 font-semibold">
             Location Access Required
           </p>
-          <p className="text-white/80 mb-4">{geoError}</p>
+          <p className="text-gray-700 dark:text-white/80 mb-4">{geoError}</p>
           {!permissionDenied && (
             <button
               onClick={retryGeolocation}
-              className="px-6 py-2 bg-white/20 hover:bg-white/30 border border-white/40 rounded-xl text-white font-medium transition-colors"
+              className="px-6 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-white/20 dark:hover:bg-white/30 border border-gray-300 dark:border-white/40 rounded-xl text-gray-900 dark:text-white font-medium transition-colors"
             >
               Try Again
             </button>
           )}
         </div>
 
-        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-xl max-w-md">
-          <p className="text-white text-center mb-4">
+        <div className="bg-white border-gray-200 dark:bg-white/10 dark:border-white/20 backdrop-blur-md border rounded-2xl p-6 shadow-xl max-w-md">
+          <p className="text-gray-900 dark:text-white text-center mb-4">
             Search for a city instead:
           </p>
           <CitySearch onCitySelect={handleCitySelect} />
@@ -134,15 +136,17 @@ export default function HomePage() {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
         <LoadingComponent
-          className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-xl text-center"
+          className="bg-white border-gray-200 dark:bg-white/10 dark:border-white/20 backdrop-blur-md border rounded-2xl p-8 shadow-xl text-center"
           {...(!reducedMotion && {
             ...fadeIn,
             initial: "initial",
             animate: "animate",
           })}
         >
-          <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-white text-lg">Loading weather data...</p>
+          <div className="w-16 h-16 border-4 border-gray-300 border-t-blue-600 dark:border-white/30 dark:border-t-white rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-900 dark:text-white text-lg">
+            Loading weather data...
+          </p>
         </LoadingComponent>
       </div>
     );
@@ -151,9 +155,9 @@ export default function HomePage() {
   if (error) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
-        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-xl text-center">
+        <div className="bg-white border-gray-200 dark:bg-white/10 dark:border-white/20 backdrop-blur-md border rounded-2xl p-8 shadow-xl text-center">
           <svg
-            className="w-16 h-16 text-red-300 mx-auto mb-4"
+            className="w-16 h-16 text-red-600 dark:text-red-300 mx-auto mb-4"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -165,15 +169,15 @@ export default function HomePage() {
               d="M6 18L18 6M6 6l12 12"
             />
           </svg>
-          <p className="text-red-300 text-lg mb-2 font-semibold">
+          <p className="text-red-600 dark:text-red-300 text-lg mb-2 font-semibold">
             Weather Error
           </p>
-          <p className="text-white/80 mb-4">
+          <p className="text-gray-700 dark:text-white/80 mb-4">
             Failed to load weather data. Please try again.
           </p>
           <button
             onClick={() => window.location.reload()}
-            className="px-6 py-2 bg-white/20 hover:bg-white/30 border border-white/40 rounded-xl text-white font-medium transition-colors"
+            className="px-6 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-white/20 dark:hover:bg-white/30 border border-gray-300 dark:border-white/40 rounded-xl text-gray-900 dark:text-white font-medium transition-colors"
           >
             Retry
           </button>

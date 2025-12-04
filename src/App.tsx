@@ -4,35 +4,38 @@ import HomePage from "./pages/HomePage";
 import Layout from "./components/Layout";
 import { PageTransition } from "./components/layout/PageTransition";
 import { FavoritesProvider } from "./context/FavoritesContext";
+import { ThemeProvider } from "./context/ThemeContext";
 
 function App() {
   const location = useLocation();
 
   return (
-    <FavoritesProvider>
-      <Layout>
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route
-              path="/"
-              element={
-                <PageTransition>
-                  <HomePage />
-                </PageTransition>
-              }
-            />
-            <Route
-              path="/:city"
-              element={
-                <PageTransition>
-                  <HomePage />
-                </PageTransition>
-              }
-            />
-          </Routes>
-        </AnimatePresence>
-      </Layout>
-    </FavoritesProvider>
+    <ThemeProvider>
+      <FavoritesProvider>
+        <Layout>
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route
+                path="/"
+                element={
+                  <PageTransition>
+                    <HomePage />
+                  </PageTransition>
+                }
+              />
+              <Route
+                path="/:city"
+                element={
+                  <PageTransition>
+                    <HomePage />
+                  </PageTransition>
+                }
+              />
+            </Routes>
+          </AnimatePresence>
+        </Layout>
+      </FavoritesProvider>
+    </ThemeProvider>
   );
 }
 

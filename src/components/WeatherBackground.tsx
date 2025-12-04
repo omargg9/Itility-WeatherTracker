@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ImageWithFallback } from "./ImageWithFallback";
+import { useTheme } from "../context/ThemeContext";
 
 /**
  * Props for WeatherBackground component
@@ -39,6 +40,9 @@ interface WeatherBackgroundProps {
  * </div>
  */
 export function WeatherBackground({ condition }: WeatherBackgroundProps) {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
   const getBackgroundImage = () => {
     switch (condition.toLowerCase()) {
       case "clear":
@@ -78,7 +82,13 @@ export function WeatherBackground({ condition }: WeatherBackgroundProps) {
         className="w-full h-full object-cover"
         loading="eager"
       />
-      <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/30 to-black/50" />
+      <div
+        className={`absolute inset-0 bg-linear-to-b ${
+          isLight
+            ? "from-white/20 via-white/10 to-white/30"
+            : "from-black/40 via-black/30 to-black/50"
+        }`}
+      />
     </motion.div>
   );
 }

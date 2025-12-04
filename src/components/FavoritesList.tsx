@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useFavorites } from "../hooks/useFavorites";
+import { useTheme } from "../context/ThemeContext";
 
 interface FavoritesListProps {
   onSelectLocation: (lat: number, lon: number, name: string) => void;
@@ -9,6 +10,7 @@ export default function FavoritesList({
   onSelectLocation,
 }: FavoritesListProps) {
   const { favorites, removeFavorite } = useFavorites();
+  const { theme } = useTheme();
 
   if (favorites.length === 0) {
     return null;
@@ -16,7 +18,16 @@ export default function FavoritesList({
 
   return (
     <section className="mt-8">
-      <h2 className="text-2xl font-bold mb-4 text-white">Favorite Locations</h2>
+      <h2
+        style={{
+          fontSize: "1.5rem",
+          fontWeight: "bold",
+          marginBottom: "1rem",
+          color: theme === "dark" ? "#ffffff" : "#111827",
+        }}
+      >
+        Favorite Locations
+      </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <AnimatePresence mode="popLayout">
           {favorites.map((favorite, index) => (
@@ -31,29 +42,90 @@ export default function FavoritesList({
                 opacity: { duration: 0.2 },
                 scale: { duration: 0.2 },
               }}
-              className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4 group relative overflow-hidden"
+              style={{
+                background: theme === "dark" ? "#1f2937" : "#ffffff",
+                border:
+                  theme === "dark" ? "1px solid #374151" : "1px solid #e5e7eb",
+                borderRadius: "0.75rem",
+                padding: "1rem",
+                position: "relative",
+                overflow: "hidden",
+                boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+              }}
             >
               <button
                 onClick={() =>
                   onSelectLocation(favorite.lat, favorite.lon, favorite.name)
                 }
-                className="w-full text-left"
+                style={{
+                  width: "100%",
+                  textAlign: "left",
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: 0,
+                }}
               >
-                <h3 className="text-lg font-semibold text-white group-hover:text-blue-200 transition-colors">
+                <h3
+                  style={{
+                    fontSize: "1.125rem",
+                    fontWeight: 600,
+                    color: theme === "dark" ? "#ffffff" : "#111827",
+                    transition: "color 0.2s",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color =
+                      theme === "dark" ? "#93c5fd" : "#2563eb";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color =
+                      theme === "dark" ? "#ffffff" : "#111827";
+                  }}
+                >
                   {favorite.name}
                 </h3>
-                <p className="text-sm text-white/60 mt-1">
+                <p
+                  style={{
+                    fontSize: "0.875rem",
+                    color:
+                      theme === "dark" ? "rgba(255, 255, 255, 0.6)" : "#4b5563",
+                    marginTop: "0.25rem",
+                  }}
+                >
                   {favorite.lat.toFixed(2)}, {favorite.lon.toFixed(2)}
                 </p>
               </button>
 
               <button
                 onClick={() => removeFavorite(favorite.id)}
-                className="absolute top-2 right-2 p-1.5 rounded-full bg-red-500/20 hover:bg-red-500/40 transition-colors opacity-0 group-hover:opacity-100"
+                style={{
+                  position: "absolute",
+                  top: "0.5rem",
+                  right: "0.5rem",
+                  padding: "0.375rem",
+                  borderRadius: "9999px",
+                  background: "rgba(239, 68, 68, 0.2)",
+                  border: "none",
+                  cursor: "pointer",
+                  opacity: 0,
+                  transition: "all 0.2s",
+                }}
+                className="group-hover-visible"
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(239, 68, 68, 0.4)";
+                  e.currentTarget.style.opacity = "1";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(239, 68, 68, 0.2)";
+                }}
                 aria-label="Remove favorite"
               >
                 <svg
-                  className="w-4 h-4 text-white"
+                  style={{
+                    width: "1rem",
+                    height: "1rem",
+                    color: theme === "dark" ? "#ffffff" : "#dc2626",
+                  }}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"

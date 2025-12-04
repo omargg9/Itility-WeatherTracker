@@ -1,1 +1,22 @@
 @import "tailwindcss";
+
+/* Theme transition smoothness */
+* {
+  transition-property: background-color, border-color, color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Disable transitions for animations and transforms */
+*:where([class*="animate"], [class*="motion"]) {
+  transition: none;
+}
+
+/* Light theme custom classes */
+.light {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}

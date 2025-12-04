@@ -4,6 +4,7 @@ import { useDebounce } from "../hooks/useDebounce";
 import { useCitySearch } from "../hooks/useCitySearch";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { slideDown } from "@/utils/animations";
+import { useTheme } from "../context/ThemeContext";
 
 interface CitySearchProps {
   onCitySelect: (lat: number, lon: number, name: string) => void;
@@ -16,6 +17,7 @@ export default function CitySearch({ onCitySelect }: CitySearchProps) {
   const { data: cities, isLoading } = useCitySearch(debouncedQuery);
   const inputRef = useRef<HTMLInputElement>(null);
   const reducedMotion = useReducedMotion();
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (cities && cities.length > 0 && query.length >= 2) {
@@ -47,12 +49,44 @@ export default function CitySearch({ onCitySelect }: CitySearchProps) {
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => cities && cities.length > 0 && setIsOpen(true)}
           placeholder="Search city..."
-          className="w-full px-4 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all"
+          style={{
+            width: "100%",
+            padding: "0.75rem 1rem",
+            background:
+              theme === "dark" ? "rgba(255, 255, 255, 0.1)" : "#ffffff",
+            border:
+              theme === "dark"
+                ? "1px solid rgba(255, 255, 255, 0.2)"
+                : "1px solid #d1d5db",
+            borderRadius: "0.75rem",
+            color: theme === "dark" ? "#ffffff" : "#111827",
+            outline: "none",
+            transition: "all 0.3s",
+          }}
           aria-label="Search for a city"
         />
         {isLoading && (
-          <div className="absolute right-3 top-1/2 -translate-y-1/2">
-            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+          <div
+            style={{
+              position: "absolute",
+              right: "0.75rem",
+              top: "50%",
+              transform: "translateY(-50%)",
+            }}
+          >
+            <div
+              style={{
+                width: "1.25rem",
+                height: "1.25rem",
+                border:
+                  theme === "dark"
+                    ? "2px solid rgba(255, 255, 255, 0.3)"
+                    : "2px solid #d1d5db",
+                borderTopColor: theme === "dark" ? "#ffffff" : "#2563eb",
+                borderRadius: "50%",
+                animation: "spin 1s linear infinite",
+              }}
+            ></div>
           </div>
         )}
       </div>
@@ -62,20 +96,53 @@ export default function CitySearch({ onCitySelect }: CitySearchProps) {
           cities &&
           cities.length > 0 &&
           (reducedMotion ? (
-            <div className="absolute z-10 w-full mt-2 bg-white/95 backdrop-blur-md border border-white/20 rounded-xl shadow-xl overflow-hidden">
+            <div
+              style={{
+                position: "absolute",
+                zIndex: 10,
+                width: "100%",
+                marginTop: "0.5rem",
+                background:
+                  theme === "dark" ? "rgba(255, 255, 255, 0.95)" : "#ffffff",
+                border:
+                  theme === "dark"
+                    ? "1px solid rgba(255, 255, 255, 0.2)"
+                    : "1px solid #e5e7eb",
+                borderRadius: "0.75rem",
+                boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+                overflow: "hidden",
+              }}
+            >
               {cities.map((city) => (
                 <button
                   key={`${city.lat}-${city.lon}`}
                   onClick={() =>
                     handleSelect(city.lat, city.lon, city.name, city.country)
                   }
-                  className="w-full px-4 py-3 text-left hover:bg-blue-50 transition-colors border-b border-gray-100 last:border-b-0 min-h-11"
+                  style={{
+                    width: "100%",
+                    padding: "0.75rem 1rem",
+                    textAlign: "left",
+                    borderBottom: "1px solid #f3f4f6",
+                    minHeight: "2.75rem",
+                    background: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "#eff6ff";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "transparent";
+                  }}
                 >
-                  <div className="font-medium text-gray-900">
+                  <div style={{ fontWeight: 500, color: "#111827" }}>
                     {city.name}
                     {city.state && `, ${city.state}`}
                   </div>
-                  <div className="text-sm text-gray-600">{city.country}</div>
+                  <div style={{ fontSize: "0.875rem", color: "#4b5563" }}>
+                    {city.country}
+                  </div>
                 </button>
               ))}
             </div>
@@ -85,7 +152,21 @@ export default function CitySearch({ onCitySelect }: CitySearchProps) {
               initial="initial"
               animate="animate"
               exit="exit"
-              className="absolute z-10 w-full mt-2 bg-white/95 backdrop-blur-md border border-white/20 rounded-xl shadow-xl overflow-hidden"
+              style={{
+                position: "absolute",
+                zIndex: 10,
+                width: "100%",
+                marginTop: "0.5rem",
+                background:
+                  theme === "dark" ? "rgba(255, 255, 255, 0.95)" : "#ffffff",
+                border:
+                  theme === "dark"
+                    ? "1px solid rgba(255, 255, 255, 0.2)"
+                    : "1px solid #e5e7eb",
+                borderRadius: "0.75rem",
+                boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+                overflow: "hidden",
+              }}
             >
               {cities.map((city) => (
                 <button
@@ -93,13 +174,30 @@ export default function CitySearch({ onCitySelect }: CitySearchProps) {
                   onClick={() =>
                     handleSelect(city.lat, city.lon, city.name, city.country)
                   }
-                  className="w-full px-4 py-3 text-left hover:bg-blue-50 transition-colors border-b border-gray-100 last:border-b-0 min-h-11"
+                  style={{
+                    width: "100%",
+                    padding: "0.75rem 1rem",
+                    textAlign: "left",
+                    borderBottom: "1px solid #f3f4f6",
+                    minHeight: "2.75rem",
+                    background: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "#eff6ff";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "transparent";
+                  }}
                 >
-                  <div className="font-medium text-gray-900">
+                  <div style={{ fontWeight: 500, color: "#111827" }}>
                     {city.name}
                     {city.state && `, ${city.state}`}
                   </div>
-                  <div className="text-sm text-gray-600">{city.country}</div>
+                  <div style={{ fontSize: "0.875rem", color: "#4b5563" }}>
+                    {city.country}
+                  </div>
                 </button>
               ))}
             </motion.div>

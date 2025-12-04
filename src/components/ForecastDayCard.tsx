@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { cardHover, staggerItem } from "@/utils/animations";
 import WeatherAnimation from "./WeatherAnimation";
+import { useTheme } from "../context/ThemeContext";
 
 interface ForecastDayCardProps {
   date: string;
@@ -21,30 +22,74 @@ export default function ForecastDayCard({
   precipProbability,
 }: ForecastDayCardProps) {
   const reducedMotion = useReducedMotion();
+  const { theme } = useTheme();
   const dayOfWeek = new Date(date).toLocaleDateString("en-US", {
     weekday: "short",
   });
 
-  const cardClasses =
-    "bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4 min-w-[120px] shrink-0 snap-start cursor-pointer";
+  const cardStyle = {
+    background: theme === "dark" ? "rgba(255, 255, 255, 0.1)" : "#ffffff",
+    border:
+      theme === "dark"
+        ? "1px solid rgba(255, 255, 255, 0.2)"
+        : "1px solid #e5e7eb",
+    borderRadius: "0.75rem",
+    padding: "1rem",
+    minWidth: "120px",
+    flexShrink: 0,
+    scrollSnapAlign: "start",
+    cursor: "pointer",
+    boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+  };
 
   if (reducedMotion) {
     return (
-      <article className={cardClasses}>
-        <h3 className="text-lg font-semibold text-center text-white mb-2">
+      <article style={cardStyle}>
+        <h3
+          style={{
+            fontSize: "1.125rem",
+            fontWeight: 600,
+            textAlign: "center",
+            color: theme === "dark" ? "#ffffff" : "#111827",
+            marginBottom: "0.5rem",
+          }}
+        >
           {dayOfWeek}
         </h3>
         <div className="flex justify-center my-2">
           <WeatherAnimation conditionCode={iconCode} size="sm" />
         </div>
-        <p className="text-center text-sm font-medium capitalize text-white/90 mb-2">
+        <p
+          style={{
+            textAlign: "center",
+            fontSize: "0.875rem",
+            fontWeight: 500,
+            textTransform: "capitalize",
+            color: theme === "dark" ? "rgba(255, 255, 255, 0.9)" : "#374151",
+            marginBottom: "0.5rem",
+          }}
+        >
           {condition}
         </p>
-        <p className="text-center font-bold text-white text-lg">
+        <p
+          style={{
+            textAlign: "center",
+            fontWeight: "bold",
+            color: theme === "dark" ? "#ffffff" : "#111827",
+            fontSize: "1.125rem",
+          }}
+        >
           {Math.round(high)}° / {Math.round(low)}°
         </p>
         {precipProbability > 0 && (
-          <p className="text-center text-xs text-blue-200 mt-2">
+          <p
+            style={{
+              textAlign: "center",
+              fontSize: "0.75rem",
+              color: theme === "dark" ? "#93c5fd" : "#2563eb",
+              marginTop: "0.5rem",
+            }}
+          >
             {Math.round(precipProbability * 100)}% rain
           </p>
         )}
@@ -54,26 +99,57 @@ export default function ForecastDayCard({
 
   return (
     <motion.article
-      className={cardClasses}
+      style={cardStyle}
       whileHover={cardHover}
       variants={staggerItem}
       initial="initial"
       animate="animate"
     >
-      <h3 className="text-lg font-semibold text-center text-white mb-2">
+      <h3
+        style={{
+          fontSize: "1.125rem",
+          fontWeight: 600,
+          textAlign: "center",
+          color: theme === "dark" ? "#ffffff" : "#111827",
+          marginBottom: "0.5rem",
+        }}
+      >
         {dayOfWeek}
       </h3>
       <div className="flex justify-center my-2">
         <WeatherAnimation conditionCode={iconCode} size="sm" />
       </div>
-      <p className="text-center text-sm font-medium capitalize text-white/90 mb-2">
+      <p
+        style={{
+          textAlign: "center",
+          fontSize: "0.875rem",
+          fontWeight: 500,
+          textTransform: "capitalize",
+          color: theme === "dark" ? "rgba(255, 255, 255, 0.9)" : "#374151",
+          marginBottom: "0.5rem",
+        }}
+      >
         {condition}
       </p>
-      <p className="text-center font-bold text-white text-lg">
+      <p
+        style={{
+          textAlign: "center",
+          fontWeight: "bold",
+          color: theme === "dark" ? "#ffffff" : "#111827",
+          fontSize: "1.125rem",
+        }}
+      >
         {Math.round(high)}° / {Math.round(low)}°
       </p>
       {precipProbability > 0 && (
-        <p className="text-center text-xs text-blue-200 mt-2">
+        <p
+          style={{
+            textAlign: "center",
+            fontSize: "0.75rem",
+            color: theme === "dark" ? "#93c5fd" : "#2563eb",
+            marginTop: "0.5rem",
+          }}
+        >
           {Math.round(precipProbability * 100)}% rain
         </p>
       )}
