@@ -58,7 +58,21 @@ export default function Layout({ children }: LayoutProps) {
                     : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                 }`}
               >
-                📊 Widgets
+                📊 {t("nav.widgets", "Widgets")}
+              </Link>
+              <Link
+                to="/map"
+                className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                  location.pathname === "/map"
+                    ? theme === "dark"
+                      ? "bg-white/20 text-white"
+                      : "bg-blue-500 text-white"
+                    : theme === "dark"
+                    ? "text-white/70 hover:text-white hover:bg-white/10"
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                }`}
+              >
+                🗺️ {t("nav.map", "Map")}
               </Link>
             </nav>
           </div>

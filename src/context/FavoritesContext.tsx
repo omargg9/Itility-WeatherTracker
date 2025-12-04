@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  type ReactNode,
+} from "react";
 
 export interface FavoriteLocation {
   id: string;
@@ -17,17 +23,19 @@ interface FavoritesContextType {
   canAddMore: boolean;
 }
 
-const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
+const FavoritesContext = createContext<FavoritesContextType | undefined>(
+  undefined
+);
 
-const STORAGE_KEY = 'weather_favorites';
+const STORAGE_KEY = "weather_favorites";
 const MAX_FAVORITES = 10;
 
 /**
  * FavoritesProvider - Centralized favorites state management
- * 
+ *
  * Provides shared favorites state across the entire app, fixing the issue
  * where favorites list doesn't update immediately after adding/removing.
- * 
+ *
  * Features:
  * - Centralized state management via React Context
  * - Automatic localStorage persistence
@@ -40,7 +48,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
       const stored = localStorage.getItem(STORAGE_KEY);
       return stored ? JSON.parse(stored) : [];
     } catch (error) {
-      console.error('Failed to load favorites from localStorage:', error);
+      console.error("Failed to load favorites from localStorage:", error);
       return [];
     }
   });
@@ -50,7 +58,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
     } catch (error) {
-      console.error('Failed to save favorites to localStorage:', error);
+      console.error("Failed to save favorites to localStorage:", error);
     }
   }, [favorites]);
 
@@ -60,7 +68,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     }
 
     const id = `${lat}-${lon}`;
-    if (favorites.some(fav => fav.id === id)) {
+    if (favorites.some((fav) => fav.id === id)) {
       return false; // Already exists
     }
 
@@ -72,17 +80,17 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
       addedAt: Date.now(),
     };
 
-    setFavorites(prev => [...prev, newFavorite]);
+    setFavorites((prev) => [...prev, newFavorite]);
     return true;
   };
 
   const removeFavorite = (id: string) => {
-    setFavorites(prev => prev.filter(fav => fav.id !== id));
+    setFavorites((prev) => prev.filter((fav) => fav.id !== id));
   };
 
   const isFavorite = (lat: number, lon: number): boolean => {
     const id = `${lat}-${lon}`;
-    return favorites.some(fav => fav.id === id);
+    return favorites.some((fav) => fav.id === id);
   };
 
   const toggleFavorite = (name: string, lat: number, lon: number): boolean => {
@@ -113,17 +121,19 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
 
 /**
  * useFavorites hook - Access favorites context
- * 
+ *
  * Must be used within a FavoritesProvider. Returns the favorites
  * state and all mutation functions.
- * 
+ *
  * @throws {Error} If used outside FavoritesProvider
  */
 // eslint-disable-next-line react-refresh/only-export-components
 export function useFavoritesContext(): FavoritesContextType {
   const context = useContext(FavoritesContext);
   if (context === undefined) {
-    throw new Error('useFavoritesContext must be used within a FavoritesProvider');
+    throw new Error(
+      "useFavoritesContext must be used within a FavoritesProvider"
+    );
   }
   return context;
 }

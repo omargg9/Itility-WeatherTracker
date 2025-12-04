@@ -1,0 +1,17 @@
+=== EPIC 5.2: INTERACTIVE WEATHER MAPS ===
+Status: STARTING
+Date: December 4, 2025
+
+Dependencies already installed:
+✅ react-leaflet ^5.0.0
+✅ leaflet ^1.9.4
+✅ @types/leaflet ^1.9.21
+
+Stories to implement (5 days, 5 stories):
+1. Story 5.2.1: Map Library Integration
+2. Story 5.2.2: Weather Layer Overlays
+3. Story 5.2.3: Animated Precipitation Radar
+4. Story 5.2.4: Map Markers & Location Selection
+5. Story 5.2.5: Map View Page & Integration
+
+Starting with Story 5.2.1: Map Library Integration...

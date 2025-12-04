@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import HomePage from "./pages/HomePage";
 import WidgetsPage from "./pages/WidgetsPage";
+import MapPage from "./pages/MapPage";
 import Layout from "./components/Layout";
 import { PageTransition } from "./components/layout/PageTransition";
 import { FavoritesProvider } from "./context/FavoritesContext";
@@ -33,6 +34,14 @@ function App() {
                 element={
                   <PageTransition>
                     <WidgetsPage />
+                  </PageTransition>
+                }
+              />
+              <Route
+                path="/map"
+                element={
+                  <PageTransition>
+                    <MapPage />
                   </PageTransition>
                 }
               />

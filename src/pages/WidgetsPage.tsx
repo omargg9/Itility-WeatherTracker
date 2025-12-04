@@ -29,6 +29,9 @@ export default function WidgetsPage() {
     return (stored as "grid" | "list") || "grid";
   });
 
+  // Track custom order changes
+  const [orderKey, setOrderKey] = useState(0);
+
   // Derive ordered favorites from favorites and stored order
   const orderedFavorites = useMemo(() => {
     if (favorites.length === 0) {
@@ -53,7 +56,7 @@ export default function WidgetsPage() {
     } else {
       return favorites;
     }
-  }, [favorites]);
+  }, [favorites, orderKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Save view mode to localStorage
   useEffect(() => {
@@ -64,6 +67,7 @@ export default function WidgetsPage() {
   const handleReorder = (newOrder: FavoriteLocation[]) => {
     const orderIds = newOrder.map((f) => f.id);
     localStorage.setItem(STORAGE_KEY_ORDER, JSON.stringify(orderIds));
+    setOrderKey((prev) => prev + 1); // Trigger re-render
   };
 
   const handleWidgetClick = (locationId: string) => {

@@ -43,7 +43,7 @@ export default function HomePage() {
       return {
         lat: savedLocation.lat,
         lon: savedLocation.lon,
-        name: savedLocation.name || '',
+        name: savedLocation.name || "",
       };
     }
     return null;
