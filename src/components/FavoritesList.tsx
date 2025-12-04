@@ -7,6 +7,10 @@ interface FavoritesListProps {
   onSelectLocation: (lat: number, lon: number, name: string) => void;
 }
 
+/**
+ * Displays grid of favorite locations with quick access
+ * @param onSelectLocation - Callback when a favorite location is selected
+ */
 export default function FavoritesList({
   onSelectLocation,
 }: FavoritesListProps) {

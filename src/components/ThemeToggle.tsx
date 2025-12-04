@@ -1,18 +1,22 @@
-import { motion } from 'framer-motion';
-import { useTheme } from '../context/ThemeContext';
+import { motion } from "framer-motion";
+import { useTheme } from "../context/ThemeContext";
 
 /**
  * ThemeToggle - Button to switch between light and dark themes
- * 
+ *
  * Features:
  * - Animated sun/moon icon
  * - Smooth transitions
  * - Keyboard accessible
  * - Tooltip on hover
  */
+/**
+ * Theme toggle button for switching between light and dark modes
+ * Displays sun icon in dark mode, moon icon in light mode
+ */
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
-  const isLight = theme === 'light';
+  const isLight = theme === "light";
 
   return (
     <motion.button
@@ -20,8 +24,8 @@ export default function ThemeToggle() {
       className="p-2 rounded-lg bg-white/10 hover:bg-white/20 dark:bg-black/10 dark:hover:bg-black/20 backdrop-blur-sm border border-white/20 dark:border-white/10 transition-colors"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      aria-label={`Switch to ${isLight ? 'dark' : 'light'} mode`}
-      title={`Switch to ${isLight ? 'dark' : 'light'} mode`}
+      aria-label={`Switch to ${isLight ? "dark" : "light"} mode`}
+      title={`Switch to ${isLight ? "dark" : "light"} mode`}
     >
       <motion.div
         initial={false}

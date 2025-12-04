@@ -11,8 +11,10 @@ interface LocationButtonProps {
 }
 
 /**
- * Button to request user's current geolocation
- * Shows loading spinner when active
+ * Button to request user's current geolocation with loading state
+ * @param onClick - Callback when button is clicked
+ * @param loading - Whether location is being fetched
+ * @param disabled - Whether button is disabled
  */
 export default function LocationButton({
   onClick,

@@ -11,6 +11,10 @@ interface CitySearchProps {
   onCitySelect: (lat: number, lon: number, name: string) => void;
 }
 
+/**
+ * City search input with autocomplete suggestions
+ * @param onCitySelect - Callback when a city is selected with lat, lon, and name
+ */
 export default function CitySearch({ onCitySelect }: CitySearchProps) {
   const { t } = useTranslation();
   const [query, setQuery] = useState("");

@@ -14,6 +14,15 @@ interface ForecastDayCardProps {
   precipProbability: number;
 }
 
+/**
+ * Card displaying single day forecast with temperature range and conditions
+ * @param date - Date string (YYYY-MM-DD)
+ * @param high - High temperature
+ * @param low - Low temperature
+ * @param condition - Weather condition description
+ * @param iconCode - Weather icon code
+ * @param precipProbability - Precipitation probability (0-1)
+ */
 export default function ForecastDayCard({
   date,
   high,

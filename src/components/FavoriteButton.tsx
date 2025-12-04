@@ -8,6 +8,12 @@ interface FavoriteButtonProps {
   disabled?: boolean;
 }
 
+/**
+ * Toggle button for favorites with animated heart icon
+ * @param isFavorite - Whether location is currently favorited
+ * @param onToggle - Callback when button is clicked
+ * @param disabled - Whether button is disabled (max favorites reached)
+ */
 export default function FavoriteButton({
   isFavorite,
   onToggle,

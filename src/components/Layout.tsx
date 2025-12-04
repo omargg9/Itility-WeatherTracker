@@ -1,4 +1,3 @@
-import { type ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 import LanguageSelector from "./LanguageSelector";
@@ -6,9 +5,13 @@ import { useTheme } from "../context/ThemeContext";
 import { useTranslation } from "react-i18next";
 
 interface LayoutProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
+/**
+ * Main layout wrapper with navigation and theme-aware styling
+ * @param children - Page content to render
+ */
 export default function Layout({ children }: LayoutProps) {
   const { theme } = useTheme();
   const { t } = useTranslation();

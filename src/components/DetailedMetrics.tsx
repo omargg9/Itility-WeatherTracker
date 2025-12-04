@@ -6,6 +6,10 @@ interface DetailedMetricsProps {
   weather: CurrentWeatherResponse;
 }
 
+/**
+ * Displays detailed weather metrics (humidity, pressure, wind, visibility, sunrise/sunset)
+ * @param weather - Current weather data
+ */
 export default function DetailedMetrics({ weather }: DetailedMetricsProps) {
   const { t } = useTranslation();
   const { main, wind, sys, visibility } = weather;

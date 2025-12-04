@@ -7,6 +7,10 @@ const languages = [
   { code: "nl", name: "Nederlands", flag: "🇳🇱" },
 ];
 
+/**
+ * Language selector dropdown for internationalization
+ * Supports English, Spanish, French, and German
+ */
 export default function LanguageSelector() {
   const { i18n } = useTranslation();
   const { theme } = useTheme();

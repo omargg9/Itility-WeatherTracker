@@ -12,6 +12,11 @@ interface ForecastDisplayProps {
   lon: number;
 }
 
+/**
+ * 5-day weather forecast display with daily cards
+ * @param lat - Latitude
+ * @param lon - Longitude
+ */
 export default function ForecastDisplay({ lat, lon }: ForecastDisplayProps) {
   const { t } = useTranslation();
   const { data, isLoading, error } = useForecast(lat, lon);

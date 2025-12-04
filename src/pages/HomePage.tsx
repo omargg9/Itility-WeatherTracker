@@ -14,6 +14,10 @@ import FavoritesList from "../components/FavoritesList";
 import DetailedMetrics from "../components/DetailedMetrics";
 import LocationButton from "../components/LocationButton";
 
+/**
+ * Main weather application page showing current weather and forecasts
+ * Supports geolocation, city search, and favorites
+ */
 export default function HomePage() {
   const { t } = useTranslation();
   const {

@@ -7,6 +7,10 @@ import { PageTransition } from "./components/layout/PageTransition";
 import { FavoritesProvider } from "./context/FavoritesContext";
 import { ThemeProvider } from "./context/ThemeContext";
 
+/**
+ * Main App component with routing and global providers
+ * Handles page transitions and wraps app with theme and favorites context
+ */
 function App() {
   const location = useLocation();
 
