@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { staggerContainer, fadeIn } from "@/utils/animations";
 import { useForecast } from "../hooks/useWeather";
@@ -12,6 +13,7 @@ interface ForecastDisplayProps {
 }
 
 export default function ForecastDisplay({ lat, lon }: ForecastDisplayProps) {
+  const { t } = useTranslation();
   const { data, isLoading, error } = useForecast(lat, lon);
   const reducedMotion = useReducedMotion();
   const { theme } = useTheme();
@@ -57,11 +59,11 @@ export default function ForecastDisplay({ lat, lon }: ForecastDisplayProps) {
             color: theme === "dark" ? "#ffffff" : "#111827",
           }}
         >
-          5-Day Forecast
+          {t("forecast.daily")}
         </h2>
         <div className="bg-white border-gray-200 dark:bg-white/10 dark:border-white/20 backdrop-blur-md border rounded-2xl p-8 text-center">
           <p className="text-red-600 dark:text-red-300 text-lg mb-2">
-            Failed to load forecast
+            {t("errors.failedToLoad")}
           </p>
           <p className="text-gray-700 dark:text-white/80">
             Please try again later
@@ -86,7 +88,7 @@ export default function ForecastDisplay({ lat, lon }: ForecastDisplayProps) {
           color: theme === "dark" ? "#ffffff" : "#111827",
         }}
       >
-        5-Day Forecast
+        {t("forecast.daily")}
       </h2>
       <ContainerComponent
         className="flex gap-4 overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-5 md:overflow-visible pb-4"

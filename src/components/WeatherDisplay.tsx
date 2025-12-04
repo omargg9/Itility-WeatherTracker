@@ -1,4 +1,5 @@
 import type { CurrentWeatherResponse } from "../types/weather";
+import { useTranslation } from "react-i18next";
 import WeatherAnimation from "./WeatherAnimation";
 import FavoriteButton from "./FavoriteButton";
 import { useFavorites } from "../hooks/useFavorites";
@@ -9,6 +10,7 @@ interface WeatherDisplayProps {
 }
 
 export default function WeatherDisplay({ weather }: WeatherDisplayProps) {
+  const { t } = useTranslation();
   const { main, weather: conditions, wind, name, coord } = weather;
   const { isFavorite, toggleFavorite, canAddMore } = useFavorites();
 
@@ -50,7 +52,7 @@ export default function WeatherDisplay({ weather }: WeatherDisplayProps) {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 relative z-10">
         <div className="bg-gray-100 dark:bg-gray-700/50 backdrop-blur rounded-xl p-4 text-center">
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
-            Feels Like
+            {t("weather.feelsLike")}
           </p>
           <p className="text-2xl font-semibold text-gray-900 dark:text-white">
             {Math.round(main.feels_like)}°C
@@ -59,7 +61,7 @@ export default function WeatherDisplay({ weather }: WeatherDisplayProps) {
 
         <div className="bg-gray-100 dark:bg-gray-700/50 backdrop-blur rounded-xl p-4 text-center">
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
-            Humidity
+            {t("weather.humidity")}
           </p>
           <p className="text-2xl font-semibold text-gray-900 dark:text-white">
             {main.humidity}%
@@ -68,7 +70,7 @@ export default function WeatherDisplay({ weather }: WeatherDisplayProps) {
 
         <div className="bg-gray-100 dark:bg-gray-700/50 backdrop-blur rounded-xl p-4 text-center">
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
-            Wind Speed
+            {t("weather.windSpeed")}
           </p>
           <p className="text-2xl font-semibold text-gray-900 dark:text-white">
             {Math.round(wind.speed)} m/s
@@ -77,7 +79,7 @@ export default function WeatherDisplay({ weather }: WeatherDisplayProps) {
 
         <div className="bg-gray-100 dark:bg-gray-700/50 backdrop-blur rounded-xl p-4 text-center">
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
-            Pressure
+            {t("weather.pressure")}
           </p>
           <p className="text-2xl font-semibold text-gray-900 dark:text-white">
             {main.pressure} hPa

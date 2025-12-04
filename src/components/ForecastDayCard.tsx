@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { cardHover, staggerItem } from "@/utils/animations";
 import WeatherAnimation from "./WeatherAnimation";
@@ -21,6 +22,7 @@ export default function ForecastDayCard({
   iconCode,
   precipProbability,
 }: ForecastDayCardProps) {
+  const { t } = useTranslation();
   const reducedMotion = useReducedMotion();
   const { theme } = useTheme();
   const dayOfWeek = new Date(date).toLocaleDateString("en-US", {
@@ -90,7 +92,7 @@ export default function ForecastDayCard({
               marginTop: "0.5rem",
             }}
           >
-            {Math.round(precipProbability * 100)}% rain
+            {Math.round(precipProbability * 100)}% {t("forecast.rain")}
           </p>
         )}
       </article>
@@ -150,7 +152,7 @@ export default function ForecastDayCard({
             marginTop: "0.5rem",
           }}
         >
-          {Math.round(precipProbability * 100)}% rain
+          {Math.round(precipProbability * 100)}% {t("forecast.rain")}
         </p>
       )}
     </motion.article>

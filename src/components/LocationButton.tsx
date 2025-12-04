@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { buttonHover, buttonTap } from "@/utils/animations";
 import { useTheme } from "../context/ThemeContext";
@@ -18,6 +19,7 @@ export default function LocationButton({
   loading = false,
   disabled = false,
 }: LocationButtonProps) {
+  const { t } = useTranslation();
   const reducedMotion = useReducedMotion();
   const { theme } = useTheme();
 
@@ -76,7 +78,7 @@ export default function LocationButton({
           />
         </svg>
       )}
-      <span>{loading ? "Detecting..." : "Use My Location"}</span>
+      <span>{loading ? t("search.detecting") : t("search.useLocation")}</span>
     </>
   );
 

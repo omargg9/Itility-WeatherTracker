@@ -1,0 +1,50 @@
+{
+  "app": {
+    "title": "Weertracker"
+  },
+  "search": {
+    "placeholder": "Zoek stad...",
+    "useLocation": "Gebruik Mijn Locatie",
+    "detecting": "Detecteren..."
+  },
+  "favorites": {
+    "title": "Favoriete Locaties",
+    "remove": "Verwijder favoriet"
+  },
+  "weather": {
+    "feelsLike": "Gevoelstemperatuur",
+    "humidity": "Luchtvochtigheid",
+    "windSpeed": "Windsnelheid",
+    "pressure": "Druk"
+  },
+  "detailedMetrics": {
+    "title": "Gedetailleerde Statistieken",
+    "sunrise": "Zonsopgang",
+    "sunset": "Zonsondergang",
+    "visibility": "Zichtbaarheid",
+    "windDir": "Windrichting",
+    "windGust": "Windstoot",
+    "seaLevel": "Zeeniveau"
+  },
+  "forecast": {
+    "hourly": "24-Uurs Voorspelling",
+    "daily": "5-Daagse Voorspelling",
+    "rain": "regen"
+  },
+  "loading": {
+    "location": "Uw locatie detecteren...",
+    "weather": "Weergegevens laden...",
+    "wait": "Dit kan enkele seconden duren"
+  },
+  "errors": {
+    "locationRequired": "Locatietoegang Vereist",
+    "weatherError": "Weerfout",
+    "failedToLoad": "Kan weergegevens niet laden. Probeer het opnieuw.",
+    "tryAgain": "Probeer Opnieuw",
+    "retry": "Opnieuw proberen",
+    "searchInstead": "Zoek in plaats daarvan naar een stad:"
+  },
+  "footer": {
+    "poweredBy": "Mogelijk gemaakt door OpenWeatherMap API"
+  }
+}

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { useForecast } from "../hooks/useWeather";
 import WeatherAnimation from "./WeatherAnimation";
 import { useTheme } from "../context/ThemeContext";
@@ -9,6 +10,7 @@ interface HourlyForecastProps {
 }
 
 export default function HourlyForecast({ lat, lon }: HourlyForecastProps) {
+  const { t } = useTranslation();
   const { data, isLoading, error } = useForecast(lat, lon);
   const { theme } = useTheme();
 
@@ -23,7 +25,7 @@ export default function HourlyForecast({ lat, lon }: HourlyForecastProps) {
             color: theme === "dark" ? "#ffffff" : "#111827",
           }}
         >
-          24-Hour Forecast
+          {t("forecast.hourly")}
         </h2>
         <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-4">
           {[...Array(8)].map((_, i) => (
@@ -58,7 +60,7 @@ export default function HourlyForecast({ lat, lon }: HourlyForecastProps) {
           color: theme === "dark" ? "#ffffff" : "#111827",
         }}
       >
-        24-Hour Forecast
+        {t("forecast.hourly")}
       </h2>
       <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-4">
         {hourlyData.map((item, index) => {

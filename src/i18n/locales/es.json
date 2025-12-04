@@ -1,0 +1,50 @@
+{
+  "app": {
+    "title": "Rastreador del Clima"
+  },
+  "search": {
+    "placeholder": "Buscar ciudad...",
+    "useLocation": "Usar Mi Ubicación",
+    "detecting": "Detectando..."
+  },
+  "favorites": {
+    "title": "Ubicaciones Favoritas",
+    "remove": "Eliminar favorito"
+  },
+  "weather": {
+    "feelsLike": "Sensación Térmica",
+    "humidity": "Humedad",
+    "windSpeed": "Velocidad del Viento",
+    "pressure": "Presión"
+  },
+  "detailedMetrics": {
+    "title": "Métricas Detalladas",
+    "sunrise": "Amanecer",
+    "sunset": "Atardecer",
+    "visibility": "Visibilidad",
+    "windDir": "Dir. del Viento",
+    "windGust": "Ráfaga de Viento",
+    "seaLevel": "Nivel del Mar"
+  },
+  "forecast": {
+    "hourly": "Pronóstico de 24 Horas",
+    "daily": "Pronóstico de 5 Días",
+    "rain": "lluvia"
+  },
+  "loading": {
+    "location": "Detectando tu ubicación...",
+    "weather": "Cargando datos del clima...",
+    "wait": "Esto puede tomar unos segundos"
+  },
+  "errors": {
+    "locationRequired": "Acceso a Ubicación Requerido",
+    "weatherError": "Error del Clima",
+    "failedToLoad": "No se pudieron cargar los datos del clima. Por favor, intenta de nuevo.",
+    "tryAgain": "Intentar de Nuevo",
+    "retry": "Reintentar",
+    "searchInstead": "Busca una ciudad en su lugar:"
+  },
+  "footer": {
+    "poweredBy": "Desarrollado por la API de OpenWeatherMap"
+  }
+}

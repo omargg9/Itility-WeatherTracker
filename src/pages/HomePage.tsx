@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { useGeolocation } from "../hooks/useGeolocation";
 import { useCurrentWeather } from "../hooks/useWeather";
 import { useLocationPersistence } from "../hooks/useLocationPersistence";
@@ -14,6 +15,7 @@ import DetailedMetrics from "../components/DetailedMetrics";
 import LocationButton from "../components/LocationButton";
 
 export default function HomePage() {
+  const { t } = useTranslation();
   const {
     latitude: geoLat,
     longitude: geoLon,
@@ -80,10 +82,10 @@ export default function HomePage() {
         >
           <div className="w-16 h-16 border-4 border-gray-300 border-t-blue-600 dark:border-white/30 dark:border-t-white rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-900 dark:text-white text-lg">
-            Detecting your location...
+            {t("loading.location")}
           </p>
           <p className="text-gray-600 dark:text-white/60 text-sm mt-2">
-            This may take a few seconds
+            {t("loading.wait")}
           </p>
         </LoadingComponent>
       </div>
@@ -108,7 +110,7 @@ export default function HomePage() {
             />
           </svg>
           <p className="text-red-600 dark:text-red-300 text-lg mb-2 font-semibold">
-            Location Access Required
+            {t("errors.locationRequired")}
           </p>
           <p className="text-gray-700 dark:text-white/80 mb-4">{geoError}</p>
           {!permissionDenied && (
@@ -116,14 +118,14 @@ export default function HomePage() {
               onClick={retryGeolocation}
               className="px-6 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-white/20 dark:hover:bg-white/30 border border-gray-300 dark:border-white/40 rounded-xl text-gray-900 dark:text-white font-medium transition-colors"
             >
-              Try Again
+              {t("errors.tryAgain")}
             </button>
           )}
         </div>
 
         <div className="bg-white border-gray-200 dark:bg-white/10 dark:border-white/20 backdrop-blur-md border rounded-2xl p-6 shadow-xl max-w-md">
           <p className="text-gray-900 dark:text-white text-center mb-4">
-            Search for a city instead:
+            {t("errors.searchInstead")}
           </p>
           <CitySearch onCitySelect={handleCitySelect} />
         </div>
@@ -145,7 +147,7 @@ export default function HomePage() {
         >
           <div className="w-16 h-16 border-4 border-gray-300 border-t-blue-600 dark:border-white/30 dark:border-t-white rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-900 dark:text-white text-lg">
-            Loading weather data...
+            {t("loading.weather")}
           </p>
         </LoadingComponent>
       </div>
@@ -170,16 +172,16 @@ export default function HomePage() {
             />
           </svg>
           <p className="text-red-600 dark:text-red-300 text-lg mb-2 font-semibold">
-            Weather Error
+            {t("errors.weatherError")}
           </p>
           <p className="text-gray-700 dark:text-white/80 mb-4">
-            Failed to load weather data. Please try again.
+            {t("errors.failedToLoad")}
           </p>
           <button
             onClick={() => window.location.reload()}
             className="px-6 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-white/20 dark:hover:bg-white/30 border border-gray-300 dark:border-white/40 rounded-xl text-gray-900 dark:text-white font-medium transition-colors"
           >
-            Retry
+            {t("errors.retry")}
           </button>
         </div>
       </div>

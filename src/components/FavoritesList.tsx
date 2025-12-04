@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { useFavorites } from "../hooks/useFavorites";
 import { useTheme } from "../context/ThemeContext";
 
@@ -9,6 +10,7 @@ interface FavoritesListProps {
 export default function FavoritesList({
   onSelectLocation,
 }: FavoritesListProps) {
+  const { t } = useTranslation();
   const { favorites, removeFavorite } = useFavorites();
   const { theme } = useTheme();
 
@@ -26,7 +28,7 @@ export default function FavoritesList({
           color: theme === "dark" ? "#ffffff" : "#111827",
         }}
       >
-        Favorite Locations
+        {t("favorites.title")}
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <AnimatePresence mode="popLayout">
@@ -118,7 +120,7 @@ export default function FavoritesList({
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = "rgba(239, 68, 68, 0.2)";
                 }}
-                aria-label="Remove favorite"
+                aria-label={t("favorites.remove")}
               >
                 <svg
                   style={{

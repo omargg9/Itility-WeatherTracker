@@ -44,7 +44,7 @@ export function ImageWithFallback({
         className={
           fallbackClassName ||
           className ||
-          "w-full h-full bg-gradient-to-br from-blue-400 via-blue-500 to-purple-600"
+          "w-full h-full bg-linear-to-br from-blue-400 via-blue-500 to-purple-600"
         }
         role="img"
         aria-label={alt}

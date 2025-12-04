@@ -1,0 +1,50 @@
+{
+  "app": {
+    "title": "Weather Tracker"
+  },
+  "search": {
+    "placeholder": "Search city...",
+    "useLocation": "Use My Location",
+    "detecting": "Detecting..."
+  },
+  "favorites": {
+    "title": "Favorite Locations",
+    "remove": "Remove favorite"
+  },
+  "weather": {
+    "feelsLike": "Feels Like",
+    "humidity": "Humidity",
+    "windSpeed": "Wind Speed",
+    "pressure": "Pressure"
+  },
+  "detailedMetrics": {
+    "title": "Detailed Metrics",
+    "sunrise": "Sunrise",
+    "sunset": "Sunset",
+    "visibility": "Visibility",
+    "windDir": "Wind Dir",
+    "windGust": "Wind Gust",
+    "seaLevel": "Sea Level"
+  },
+  "forecast": {
+    "hourly": "24-Hour Forecast",
+    "daily": "5-Day Forecast",
+    "rain": "rain"
+  },
+  "loading": {
+    "location": "Detecting your location...",
+    "weather": "Loading weather data...",
+    "wait": "This may take a few seconds"
+  },
+  "errors": {
+    "locationRequired": "Location Access Required",
+    "weatherError": "Weather Error",
+    "failedToLoad": "Failed to load weather data. Please try again.",
+    "tryAgain": "Try Again",
+    "retry": "Retry",
+    "searchInstead": "Search for a city instead:"
+  },
+  "footer": {
+    "poweredBy": "Powered by OpenWeatherMap API"
+  }
+}

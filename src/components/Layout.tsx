@@ -1,6 +1,8 @@
 import { type ReactNode } from "react";
 import ThemeToggle from "./ThemeToggle";
+import LanguageSelector from "./LanguageSelector";
 import { useTheme } from "../context/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 interface LayoutProps {
   children: ReactNode;
@@ -8,6 +10,7 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   const { theme } = useTheme();
+  const { t } = useTranslation();
 
   const backgroundStyle = {
     background: theme === "dark" ? "rgb(17, 24, 39)" : "rgb(249, 250, 251)",
@@ -29,9 +32,12 @@ export default function Layout({ children }: LayoutProps) {
               color: theme === "dark" ? "#ffffff" : "#111827",
             }}
           >
-            Weather Tracker
+            {t("app.title")}
           </h1>
-          <ThemeToggle />
+          <div className="flex items-center gap-4">
+            <LanguageSelector />
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
@@ -39,7 +45,7 @@ export default function Layout({ children }: LayoutProps) {
 
       <footer className="bg-white/80 backdrop-blur-md border-t border-gray-200 dark:bg-gray-800/80 dark:border-gray-700 p-4 mt-auto transition-colors duration-300">
         <div className="container mx-auto text-center text-sm text-gray-600 dark:text-gray-300">
-          <p>Powered by OpenWeatherMap API</p>
+          <p>{t("footer.poweredBy")}</p>
         </div>
       </footer>
     </div>

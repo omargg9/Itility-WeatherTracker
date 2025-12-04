@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { useDebounce } from "../hooks/useDebounce";
 import { useCitySearch } from "../hooks/useCitySearch";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -11,6 +12,7 @@ interface CitySearchProps {
 }
 
 export default function CitySearch({ onCitySelect }: CitySearchProps) {
+  const { t } = useTranslation();
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const debouncedQuery = useDebounce(query, 300);
@@ -48,7 +50,7 @@ export default function CitySearch({ onCitySelect }: CitySearchProps) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => cities && cities.length > 0 && setIsOpen(true)}
-          placeholder="Search city..."
+          placeholder={t("search.placeholder")}
           style={{
             width: "100%",
             padding: "0.75rem 1rem",
