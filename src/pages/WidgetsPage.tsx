@@ -246,60 +246,55 @@ export default function WidgetsPage() {
               width: "100%",
             }}
           >
-            <Reorder.Group
-              axis="xy"
-              values={orderedFavorites}
-              onReorder={handleReorder}
-              style={{
-                display: "contents",
-                listStyle: "none",
-              }}
-            >
-              {orderedFavorites.map((favorite, index) => (
-                <Reorder.Item
-                  key={favorite.id}
-                  value={favorite}
-                  style={{
-                    cursor: "grab",
-                    touchAction: "none",
-                  }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                  whileDrag={{
-                    scale: 1.05,
-                    zIndex: 1000,
-                    boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
-                    cursor: "grabbing",
-                  }}
-                >
-                  <WidgetWithData
-                    locationId={favorite.name}
-                    lat={favorite.lat}
-                    lon={favorite.lon}
-                    index={index}
-                    onClick={handleWidgetClick}
-                  />
-                </Reorder.Item>
-              ))}
-            </Reorder.Group>
+            {orderedFavorites.map((favorite, index) => (
+              <motion.div
+                key={favorite.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+              >
+                <WidgetWithData
+                  locationId={favorite.name}
+                  lat={favorite.lat}
+                  lon={favorite.lon}
+                  index={index}
+                  onClick={handleWidgetClick}
+                />
+              </motion.div>
+            ))}
           </div>
         ) : (
-          <motion.div
+          <Reorder.Group
+            axis="y"
+            values={orderedFavorites}
+            onReorder={handleReorder}
             style={{
               display: "flex",
               flexDirection: "column",
               gap: "1rem",
               width: "100%",
+              listStyle: "none",
+              margin: 0,
+              padding: 0,
             }}
-            layout
           >
             {orderedFavorites.map((favorite, index) => (
-              <motion.div
+              <Reorder.Item
                 key={favorite.id}
+                value={favorite}
+                style={{
+                  cursor: "grab",
+                  touchAction: "none",
+                }}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
+                whileDrag={{
+                  scale: 1.02,
+                  zIndex: 1000,
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+                  cursor: "grabbing",
+                }}
               >
                 <WidgetWithDataList
                   locationId={favorite.name}
@@ -307,9 +302,9 @@ export default function WidgetsPage() {
                   lon={favorite.lon}
                   onClick={handleWidgetClick}
                 />
-              </motion.div>
+              </Reorder.Item>
             ))}
-          </motion.div>
+          </Reorder.Group>
         )}
       </div>
     </div>
