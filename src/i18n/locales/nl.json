@@ -40,9 +40,16 @@
     "locationRequired": "Locatietoegang Vereist",
     "weatherError": "Weerfout",
     "failedToLoad": "Kan weergegevens niet laden. Probeer het opnieuw.",
+    "loadFailed": "Laden mislukt",
     "tryAgain": "Probeer Opnieuw",
     "retry": "Opnieuw proberen",
     "searchInstead": "Zoek in plaats daarvan naar een stad:"
+  },
+  "widget": {
+    "noData": "Geen gegevens"
+  },
+  "common": {
+    "loading": "Laden..."
   },
   "footer": {
     "poweredBy": "Mogelijk gemaakt door OpenWeatherMap API"

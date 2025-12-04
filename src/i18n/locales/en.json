@@ -40,9 +40,16 @@
     "locationRequired": "Location Access Required",
     "weatherError": "Weather Error",
     "failedToLoad": "Failed to load weather data. Please try again.",
+    "loadFailed": "Failed to load",
     "tryAgain": "Try Again",
     "retry": "Retry",
     "searchInstead": "Search for a city instead:"
+  },
+  "widget": {
+    "noData": "No data"
+  },
+  "common": {
+    "loading": "Loading..."
   },
   "footer": {
     "poweredBy": "Powered by OpenWeatherMap API"

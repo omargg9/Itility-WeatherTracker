@@ -39,12 +39,19 @@
   "errors": {
     "locationRequired": "Acceso a Ubicación Requerido",
     "weatherError": "Error del Clima",
-    "failedToLoad": "No se pudieron cargar los datos del clima. Por favor, intenta de nuevo.",
+    "failedToLoad": "Error al cargar datos del clima. Por favor, inténtalo de nuevo.",
+    "loadFailed": "Error al cargar",
     "tryAgain": "Intentar de Nuevo",
     "retry": "Reintentar",
-    "searchInstead": "Busca una ciudad en su lugar:"
+    "searchInstead": "Buscar una ciudad en su lugar:"
+  },
+  "widget": {
+    "noData": "Sin datos"
+  },
+  "common": {
+    "loading": "Cargando..."
   },
   "footer": {
-    "poweredBy": "Desarrollado por la API de OpenWeatherMap"
+    "poweredBy": "Impulsado por la API de OpenWeatherMap"
   }
 }
