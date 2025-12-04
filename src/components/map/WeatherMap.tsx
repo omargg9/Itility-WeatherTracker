@@ -11,15 +11,15 @@ import L from "leaflet";
 import { useTheme } from "@/context/ThemeContext";
 import { useTranslation } from "react-i18next";
 
-// Fix for default marker icons in React-Leaflet
-delete (L.Icon.Default.prototype as Record<string, unknown>)._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
-  iconUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
-  shadowUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+// Create custom icon to avoid Leaflet default icon issues with React 19
+const customIcon = new L.Icon({
+  iconUrl: "/leaflet/marker-icon.png",
+  iconRetinaUrl: "/leaflet/marker-icon-2x.png",
+  shadowUrl: "/leaflet/marker-shadow.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
 });
 
 interface WeatherMapProps {
@@ -143,6 +143,7 @@ export default function WeatherMap({
   return (
     <div className="relative w-full h-full rounded-lg overflow-hidden">
       <MapContainer
+        key="weather-map" // Stable key to prevent remounting
         center={center}
         zoom={zoom}
         className="w-full h-full z-0"
@@ -160,24 +161,7 @@ export default function WeatherMap({
             <WeatherLayerControl layer={weatherLayer} />
 
             {markers.map((marker, index) => (
-              <Marker
-                key={index}
-                position={marker.position}
-                icon={
-                  marker.isCurrent
-                    ? L.icon({
-                        iconUrl:
-                          "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png",
-                        shadowUrl:
-                          "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
-                        iconSize: [25, 41],
-                        iconAnchor: [12, 41],
-                        popupAnchor: [1, -34],
-                        shadowSize: [41, 41],
-                      })
-                    : undefined
-                }
-              >
+              <Marker key={index} position={marker.position} icon={customIcon}>
                 <Popup>
                   <div className="text-sm">
                     <p className="font-semibold">{marker.label}</p>
