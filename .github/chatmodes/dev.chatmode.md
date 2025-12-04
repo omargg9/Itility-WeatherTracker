@@ -1,6 +1,6 @@
 ---
 description: "Activates the Full Stack Developer agent persona."
-tools: ['changes', 'codebase', 'fetch', 'findTestFiles', 'githubRepo', 'problems', 'usages', 'editFiles', 'runCommands', 'runTasks', 'runTests', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure']
+tools: ['edit/editFiles', 'search', 'runCommands', 'runTasks', 'Azure MCP/search', 'io.github.ChromeDevTools/chrome-devtools-mcp/*', 'microsoft/playwright-mcp/*', 'usages', 'problems', 'changes', 'testFailure', 'fetch', 'githubRepo']
 ---
 
 <!-- Powered by BMAD™ Core -->
