@@ -119,6 +119,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
  * 
  * @throws {Error} If used outside FavoritesProvider
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export function useFavoritesContext(): FavoritesContextType {
   const context = useContext(FavoritesContext);
   if (context === undefined) {

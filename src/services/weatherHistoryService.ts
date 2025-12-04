@@ -45,7 +45,13 @@ export async function saveWeatherSnapshot(
   lat: number,
   lon: number,
   locationName: string,
-  weatherData: any
+  weatherData: {
+    main: { temp: number; temp_min: number; temp_max: number; feels_like: number; humidity: number; pressure: number };
+    wind: { speed: number };
+    rain?: { '1h'?: number };
+    snow?: { '1h'?: number };
+    weather: Array<{ main: string; icon: string }>;
+  }
 ): Promise<void> {
   const locationKey = `${lat.toFixed(2)},${lon.toFixed(2)}`;
   const now = new Date();

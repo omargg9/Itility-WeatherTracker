@@ -1,4 +1,3 @@
-import Lottie from "lottie-react";
 import { useMemo } from "react";
 
 interface WeatherAnimationProps {

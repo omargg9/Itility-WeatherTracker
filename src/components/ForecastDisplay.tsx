@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { staggerContainer, fadeIn } from "@/utils/animations";
+import { staggerContainer } from "@/utils/animations";
 import { useForecast } from "../hooks/useWeather";
 import { processForecastData } from "../utils/forecastUtils";
 import ForecastDayCard from "./ForecastDayCard";

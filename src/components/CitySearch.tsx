@@ -25,13 +25,12 @@ export default function CitySearch({ onCitySelect }: CitySearchProps) {
   const reducedMotion = useReducedMotion();
   const { theme } = useTheme();
 
+  // Derive isOpen from cities and query instead of using effect
+  const shouldBeOpen = cities && cities.length > 0 && query.length >= 2;
+  
   useEffect(() => {
-    if (cities && cities.length > 0 && query.length >= 2) {
-      setIsOpen(true);
-    } else {
-      setIsOpen(false);
-    }
-  }, [cities, query]);
+    setIsOpen(shouldBeOpen);
+  }, [shouldBeOpen]);
 
   const handleSelect = (
     lat: number,

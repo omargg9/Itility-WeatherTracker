@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useGeolocation } from "../hooks/useGeolocation";
 import { useCurrentWeather } from "../hooks/useWeather";
@@ -31,29 +31,27 @@ export default function HomePage() {
 
   const { savedLocation, saveLocation } = useLocationPersistence();
 
+  const reducedMotion = useReducedMotion();
+
+  // Initialize selectedLocation from savedLocation if available
   const [selectedLocation, setSelectedLocation] = useState<{
     lat: number;
     lon: number;
-    name?: string;
-  } | null>(null);
-
-  const reducedMotion = useReducedMotion();
-
-  // On mount, restore saved location if available
-  useEffect(() => {
-    if (savedLocation && !selectedLocation) {
-      setSelectedLocation({
+    name: string;
+  } | null>(() => {
+    if (savedLocation) {
+      return {
         lat: savedLocation.lat,
         lon: savedLocation.lon,
-        name: savedLocation.name,
-      });
+        name: savedLocation.name || '',
+      };
     }
-  }, [savedLocation, selectedLocation]);
+    return null;
+  });
 
   // Use selected location if available, otherwise use geolocation
   const latitude = selectedLocation?.lat ?? geoLat;
   const longitude = selectedLocation?.lon ?? geoLon;
-  const locationName = selectedLocation?.name;
 
   const {
     data: weather,

@@ -52,11 +52,6 @@ export default function MiniWeatherWidget({
     medium: "w-[200px] h-[160px] p-4",
   };
 
-  const iconSizes = {
-    compact: 40,
-    medium: 60,
-  };
-
   const textSizes = {
     compact: {
       location: "text-xs",

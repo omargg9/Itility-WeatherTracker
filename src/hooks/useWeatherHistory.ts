@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getWeatherHistory, type WeatherSnapshot } from '../services/weatherHistoryService';
+import { getWeatherHistory } from '../services/weatherHistoryService';
 
 /**
  * Fetch weather history for a location from IndexedDB

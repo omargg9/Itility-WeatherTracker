@@ -5,7 +5,7 @@ import MiniWeatherWidget from "../components/widgets/MiniWeatherWidget";
 import { motion, Reorder } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import type { FavoriteLocation } from "../context/FavoritesContext";
 
 const STORAGE_KEY_VIEW = "weather_widgets_view_mode";
@@ -29,16 +29,10 @@ export default function WidgetsPage() {
     return (stored as "grid" | "list") || "grid";
   });
 
-  // Widget order for drag-and-drop
-  const [orderedFavorites, setOrderedFavorites] = useState<FavoriteLocation[]>(
-    []
-  );
-
-  // Initialize and sync ordered favorites
-  useEffect(() => {
+  // Derive ordered favorites from favorites and stored order
+  const orderedFavorites = useMemo(() => {
     if (favorites.length === 0) {
-      setOrderedFavorites([]);
-      return;
+      return [];
     }
 
     const storedOrder = localStorage.getItem(STORAGE_KEY_ORDER);
@@ -46,19 +40,18 @@ export default function WidgetsPage() {
       try {
         const orderIds: string[] = JSON.parse(storedOrder);
         // Sort favorites based on stored order
-        const ordered = [...favorites].sort((a, b) => {
+        return [...favorites].sort((a, b) => {
           const aIndex = orderIds.indexOf(a.id);
           const bIndex = orderIds.indexOf(b.id);
           if (aIndex === -1) return 1;
           if (bIndex === -1) return -1;
           return aIndex - bIndex;
         });
-        setOrderedFavorites(ordered);
       } catch {
-        setOrderedFavorites(favorites);
+        return favorites;
       }
     } else {
-      setOrderedFavorites(favorites);
+      return favorites;
     }
   }, [favorites]);
 
@@ -67,9 +60,8 @@ export default function WidgetsPage() {
     localStorage.setItem(STORAGE_KEY_VIEW, viewMode);
   }, [viewMode]);
 
-  // Save order to localStorage
+  // Save order to localStorage and update the stored order
   const handleReorder = (newOrder: FavoriteLocation[]) => {
-    setOrderedFavorites(newOrder);
     const orderIds = newOrder.map((f) => f.id);
     localStorage.setItem(STORAGE_KEY_ORDER, JSON.stringify(orderIds));
   };

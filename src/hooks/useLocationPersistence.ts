@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 interface SavedLocation {
   lat: number;
@@ -14,20 +14,17 @@ const STORAGE_KEY = 'last-viewed-location';
  * Saves to localStorage on change, restores on mount
  */
 export const useLocationPersistence = () => {
-  const [savedLocation, setSavedLocation] = useState<SavedLocation | null>(null);
-
-  // Load saved location on mount
-  useEffect(() => {
+  const [savedLocation, setSavedLocation] = useState<SavedLocation | null>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        const parsed: SavedLocation = JSON.parse(saved);
-        setSavedLocation(parsed);
+        return JSON.parse(saved);
       }
     } catch (error) {
       console.error('Error loading saved location:', error);
     }
-  }, []);
+    return null;
+  });
 
   // Save location to localStorage
   const saveLocation = useCallback((lat: number, lon: number, name?: string) => {
