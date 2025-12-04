@@ -32,7 +32,7 @@ export default function Layout({ children }: LayoutProps) {
       <header className="bg-white/80 backdrop-blur-md border-b border-gray-200 dark:bg-gray-800/80 dark:border-gray-700 p-4 transition-colors duration-300">
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center gap-6">
-            <Link to="/">
+            <Link to="/" className="hidden sm:block">
               <h1
                 style={{
                   fontSize: "1.875rem",
@@ -58,7 +58,10 @@ export default function Layout({ children }: LayoutProps) {
                     : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                 }`}
               >
-                📊 {t("nav.widgets", "Widgets")}
+                📊{" "}
+                <span className="hidden sm:inline">
+                  {t("nav.widgets", "Widgets")}
+                </span>
               </Link>
               <Link
                 to="/map"
@@ -72,7 +75,8 @@ export default function Layout({ children }: LayoutProps) {
                     : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                 }`}
               >
-                🗺️ {t("nav.map", "Map")}
+                🗺️{" "}
+                <span className="hidden sm:inline">{t("nav.map", "Map")}</span>
               </Link>
             </nav>
           </div>

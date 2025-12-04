@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useFavorites } from "../hooks/useFavorites";
 import { useTheme } from "../context/ThemeContext";
+import "./FavoritesList.css";
 
 interface FavoritesListProps {
   onSelectLocation: (lat: number, lon: number, name: string) => void;
@@ -48,6 +49,7 @@ export default function FavoritesList({
                 opacity: { duration: 0.2 },
                 scale: { duration: 0.2 },
               }}
+              className="group"
               style={{
                 background: theme === "dark" ? "#1f2937" : "#ffffff",
                 border:
@@ -104,26 +106,7 @@ export default function FavoritesList({
 
               <button
                 onClick={() => removeFavorite(favorite.id)}
-                style={{
-                  position: "absolute",
-                  top: "0.5rem",
-                  right: "0.5rem",
-                  padding: "0.375rem",
-                  borderRadius: "9999px",
-                  background: "rgba(239, 68, 68, 0.2)",
-                  border: "none",
-                  cursor: "pointer",
-                  opacity: 0,
-                  transition: "all 0.2s",
-                }}
-                className="group-hover-visible"
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(239, 68, 68, 0.4)";
-                  e.currentTarget.style.opacity = "1";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(239, 68, 68, 0.2)";
-                }}
+                className="favorite-remove-btn"
                 aria-label={t("favorites.remove")}
               >
                 <svg
