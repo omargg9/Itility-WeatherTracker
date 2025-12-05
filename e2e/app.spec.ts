@@ -10,8 +10,11 @@ test.describe('Weather Tracker App', () => {
   });
 
   test('should display the main heading', async ({ page }) => {
-    const heading = page.locator('h1, h2').first();
-    await expect(heading).toBeVisible();
+    // Wait for page to fully load
+    await page.waitForLoadState('networkidle');
+    // Look for any visible heading (some might be hidden on mobile)
+    const heading = page.locator('h1:visible, h2:visible').first();
+    await expect(heading).toBeVisible({ timeout: 10000 });
   });
 
   test('should have responsive navigation', async ({ page }) => {

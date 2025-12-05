@@ -1,0 +1,35 @@
+name: Copilot Auto-Repair
+on:
+    workflow_run:
+        workflows: ["Run Tests"] # Name of your main test workflow
+        types:
+            - completed
+
+permissions:
+    issues: write
+    contents: read
+    actions: read
+
+jobs:
+    report-failure:
+        if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Download Test Logs
+              run: gh run view ${{ github.event.workflow_run.id }} --log-failed > error_log.txt
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Create Issue for Copilot
+              uses: dacbd/create-issue-action@v2
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  title: "🚨 Automated Test Failure: Run ${{ github.event.workflow_run.id }}"
+                  body: |
+                      The CI build failed. Please analyze the following error logs and open a Pull Request to fix the failing tests.
+
+                      **Error Logs:**
+                      ```
+                      $(cat error_log.txt | tail -n 50) 
+                      ```
+                  assignees: copilot # Assigning to Copilot triggers the Agent
