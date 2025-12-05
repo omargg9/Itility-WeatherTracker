@@ -79,7 +79,7 @@ export async function saveWeatherSnapshot(
     precipitation: weatherData.rain?.['1h'] || weatherData.snow?.['1h'] || 0,
     weatherCondition: weatherData.weather[0].main,
     weatherIcon: weatherData.weather[0].icon,
-    weatherDescription: weatherData.weather[0].description,
+    weatherDescription: (weatherData.weather[0] as { main: string; icon: string; description?: string }).description || weatherData.weather[0].main,
   };
 
   if (existing) {

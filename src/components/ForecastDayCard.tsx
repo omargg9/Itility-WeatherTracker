@@ -115,6 +115,7 @@ export default function ForecastDayCard({
       variants={staggerItem}
       initial="initial"
       animate="animate"
+      transition={{ duration: 0.3 }}
     >
       <h3
         style={{

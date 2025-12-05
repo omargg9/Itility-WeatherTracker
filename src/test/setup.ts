@@ -1,6 +1,16 @@
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 
+// Declare global types for test mocks
+declare global {
+    // eslint-disable-next-line no-var
+    var fetch: ReturnType<typeof vi.fn>;
+    // eslint-disable-next-line no-var
+    var XMLHttpRequest: ReturnType<typeof vi.fn>;
+    // eslint-disable-next-line no-var
+    var Image: ReturnType<typeof vi.fn>;
+}
+
 // Mock fetch to prevent network requests in tests
 global.fetch = vi.fn(() =>
     Promise.resolve({

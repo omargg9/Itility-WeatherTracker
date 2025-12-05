@@ -26,7 +26,7 @@ export default function CitySearch({ onCitySelect }: CitySearchProps) {
   const { theme } = useTheme();
 
   // Derive isOpen from cities and query instead of using effect
-  const shouldBeOpen = cities && cities.length > 0 && query.length >= 2;
+  const shouldBeOpen = !!(cities && cities.length > 0 && query.length >= 2);
 
   useEffect(() => {
     setIsOpen(shouldBeOpen);
