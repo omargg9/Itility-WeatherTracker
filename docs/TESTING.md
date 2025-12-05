@@ -2,11 +2,16 @@
 
 ## Overview
 
-This project uses **Vitest** as the test runner with **React Testing Library** for component testing. We maintain high code coverage standards to ensure code quality and reliability.
+This project uses a comprehensive testing strategy:
+
+- **Unit & Component Tests**: **Vitest** with **React Testing Library** for component testing
+- **E2E Tests**: **Playwright** for end-to-end browser testing across multiple devices and browsers
+
+We maintain high code coverage standards to ensure code quality and reliability.
 
 ## Running Tests
 
-### Basic Commands
+### Unit & Component Tests (Vitest)
 
 ```bash
 # Run tests in watch mode (development)
@@ -29,6 +34,28 @@ npm run typecheck
 
 # Run all checks (lint + typecheck + tests)
 npm run ci
+```
+
+### E2E Tests (Playwright)
+
+```bash
+# Run all E2E tests
+npm run test:e2e
+
+# Run E2E tests in UI mode (interactive)
+npm run test:e2e:ui
+
+# Run E2E tests with browser visible
+npm run test:e2e:headed
+
+# Debug E2E tests
+npm run test:e2e:debug
+
+# View E2E test report
+npm run test:e2e:report
+
+# Generate tests using Playwright Inspector
+npm run test:e2e:codegen
 ```
 
 ## Code Coverage
@@ -323,13 +350,71 @@ it('slow test', async () => {
 }, { timeout: 10000 }); // 10 seconds
 ```
 
+## E2E Testing with Playwright
+
+### Test Organization
+
+E2E tests are located in the `/e2e` directory:
+
+- `app.spec.ts` - Basic app functionality and navigation
+- `weather-search.spec.ts` - Weather search features
+- `favorites.spec.ts` - Favorites management
+- `theme.spec.ts` - Dark/light theme toggling
+- `responsive.spec.ts` - Responsive design testing
+- `accessibility.spec.ts` - Accessibility compliance
+
+### Writing E2E Tests
+
+```typescript
+import { test, expect } from '@playwright/test';
+
+test.describe('Feature Name', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/');
+  });
+
+  test('should perform action', async ({ page }) => {
+    const button = page.getByRole('button', { name: /click me/i });
+    await button.click();
+    await expect(page).toHaveURL(/success/);
+  });
+});
+```
+
+### Best Practices for E2E Tests
+
+1. **Use semantic selectors**: Prefer `getByRole`, `getByLabel` over CSS selectors
+2. **Wait properly**: Use `await expect(element).toBeVisible()` instead of timeouts
+3. **Test user flows**: Focus on real user interactions
+4. **Keep tests independent**: Each test should work in isolation
+5. **Use descriptive names**: Make test failures easy to understand
+
+### E2E Test Configuration
+
+Tests are configured in `playwright.config.ts`:
+
+- **Browsers**: Chromium, Firefox, WebKit
+- **Mobile Devices**: Pixel 5, iPhone 12
+- **Dev Server**: Automatically starts on port 5173
+- **Screenshots**: Captured on failure
+- **Traces**: Recorded on retry
+
+See `/e2e/README.md` for detailed E2E testing documentation.
+
 ## Resources
 
+### Unit/Component Testing
 - [Vitest Documentation](https://vitest.dev/)
 - [React Testing Library](https://testing-library.com/react)
 - [Common Testing Mistakes](https://kentcdodds.com/blog/common-mistakes-with-react-testing-library)
 - [Testing Playground](https://testing-playground.com/)
 
+### E2E Testing
+- [Playwright Documentation](https://playwright.dev)
+- [Playwright Best Practices](https://playwright.dev/docs/best-practices)
+- [Playwright Debugging](https://playwright.dev/docs/debug)
+- [Playwright API Reference](https://playwright.dev/docs/api/class-playwright)
+
 ---
 
-**Last Updated:** December 4, 2025
+**Last Updated:** December 5, 2025
