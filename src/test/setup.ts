@@ -35,7 +35,7 @@ const mockImage = {
     onload: vi.fn(),
     onerror: vi.fn(),
     src: '',
-    addEventListener: vi.fn((event: string, handler: Function) => {
+    addEventListener: vi.fn((event: string, handler: () => void) => {
         if (event === 'load') {
             setTimeout(() => handler(), 0);
         }
