@@ -8,6 +8,7 @@ export default defineConfig({
     globals: true,
     environment: 'happy-dom',
     setupFiles: './src/test/setup.ts',
+    exclude: ['**/node_modules/**', '**/e2e/**', '**/*.spec.ts'],
     pool: 'forks',
     poolOptions: {
       forks: {
@@ -20,6 +21,8 @@ export default defineConfig({
       exclude: [
         'node_modules/',
         'src/test/',
+        'e2e/',
+        '**/*.spec.ts',
         '**/*.test.{ts,tsx}',
         '**/*.config.{ts,js}',
         '**/types/',
