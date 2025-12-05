@@ -47,11 +47,13 @@ npm run test:e2e:codegen
 
 The tests are configured in `playwright.config.ts` and include:
 
-- **Browsers:** Chromium, Firefox, WebKit
+- **Browsers:** Chromium, WebKit (Safari)
 - **Mobile:** Chrome on Pixel 5, Safari on iPhone 12
 - **Screenshots:** Captured on failure
 - **Traces:** Recorded on first retry
 - **Dev Server:** Automatically starts Vite on port 5173
+
+**Note:** Firefox is skipped in CI environments due to timing issues with dynamic content rendering. It can be tested locally by removing the CI check in `playwright.config.ts`.
 
 ## Writing New Tests
 
