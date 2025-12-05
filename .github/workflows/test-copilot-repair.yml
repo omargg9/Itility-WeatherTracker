@@ -1,0 +1,41 @@
+name: Test Copilot Repair
+
+on:
+    workflow_dispatch:
+
+jobs:
+    intentional-failure:
+        name: Run Tests
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20"
+
+            - name: Simulate Test Failure
+              run: |
+                  echo "================================"
+                  echo "SIMULATED TEST FAILURE"
+                  echo "================================"
+                  echo ""
+                  echo "Error: TypeError: Cannot read property 'temperature' of undefined"
+                  echo "    at WeatherCard.tsx:45:23"
+                  echo "    at Array.map (<anonymous>)"
+                  echo "    at WeatherDisplay.tsx:89:15"
+                  echo ""
+                  echo "  FAIL  src/components/WeatherCard.test.tsx"
+                  echo "    WeatherCard Component"
+                  echo "      ✓ renders weather data correctly (45ms)"
+                  echo "      ✕ handles missing temperature data (23ms)"
+                  echo "      ✓ displays loading state (18ms)"
+                  echo ""
+                  echo "Tests:       1 failed, 2 passed, 3 total"
+                  echo "Snapshots:   0 total"
+                  echo "Time:        4.521s"
+                  echo ""
+                  exit 1

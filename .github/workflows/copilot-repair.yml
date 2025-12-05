@@ -4,6 +4,12 @@ on:
         workflows: ["Run Tests"] # Name of your main test workflow
         types:
             - completed
+    workflow_dispatch:
+        inputs:
+            test_run_id:
+                description: "Test workflow run ID (leave empty to use latest failed run)"
+                required: false
+                type: string
 
 permissions:
     issues: write
@@ -12,11 +18,13 @@ permissions:
 
 jobs:
     report-failure:
-        if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+        if: ${{ github.event.workflow_run.conclusion == 'failure' || github.event_name == 'workflow_dispatch' }}
         runs-on: ubuntu-latest
         steps:
             - name: Download Test Logs
-              run: gh run view ${{ github.event.workflow_run.id }} --log-failed > error_log.txt
+              run: |
+                  RUN_ID="${{ inputs.test_run_id || github.event.workflow_run.id }}"
+                  gh run view $RUN_ID --log-failed > error_log.txt || echo "No logs available for run $RUN_ID"
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
