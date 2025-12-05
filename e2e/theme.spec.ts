@@ -20,11 +20,6 @@ test.describe('Theme Functionality', () => {
     ).first();
 
     if (await themeToggle.isVisible({ timeout: 2000 }).catch(() => false)) {
-      // Get initial theme
-      const initialBg = await page.locator('body, html, [class*="dark"]').first().evaluate(
-        el => window.getComputedStyle(el).backgroundColor
-      );
-
       // Click theme toggle
       await themeToggle.click();
       await page.waitForTimeout(500);
@@ -39,7 +34,7 @@ test.describe('Theme Functionality', () => {
     }
   });
 
-  test('should persist theme preference', async ({ page, context }) => {
+  test('should persist theme preference', async ({ page }) => {
     const themeToggle = page.getByRole('button', { name: /theme|dark|light/i }).or(
       page.locator('[aria-label*="theme" i]')
     ).first();
