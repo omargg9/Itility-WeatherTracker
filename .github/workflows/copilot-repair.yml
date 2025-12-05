@@ -35,26 +35,26 @@ jobs:
               run: |
                   ERROR_LOGS=$(cat error_log.txt | tail -n 100)
 
-                  ISSUE_BODY="The CI build failed. Please analyze the following error logs and open a Pull Request to fix the failing tests.
+                  ISSUE_BODY="@copilot Please analyze the following CI build failure and open a Pull Request to fix the failing tests.
 
                   **Workflow Run:** https://github.com/${{ github.repository }}/actions/runs/${{ inputs.test_run_id || github.event.workflow_run.id }}
 
                   **Error Logs:**
                   \`\`\`
                   ${ERROR_LOGS}
-                  \`\`\`"
+                  \`\`\`
 
-                  # Create issue and capture the issue number
+                  Please investigate the issue and create a PR with the necessary fixes."
+
+                  # Create issue with copilot mention
                   ISSUE_URL=$(gh issue create \
                     --title "🚨 Automated Test Failure: Run ${{ inputs.test_run_id || github.event.workflow_run.id }}" \
                     --body "$ISSUE_BODY" \
+                    --label "bug,automated" \
                     --repo ${{ github.repository }})
 
                   ISSUE_NUMBER=$(echo $ISSUE_URL | grep -o '[0-9]*$')
-                  echo "Created issue #$ISSUE_NUMBER"
-
-                  # Assign Copilot to the issue
-                  gh copilot assign $ISSUE_NUMBER --repo ${{ github.repository }}
-                  echo "Assigned Copilot to issue #$ISSUE_NUMBER"
+                  echo "Created issue #$ISSUE_NUMBER with @copilot mention"
+                  echo "Visit the issue and use the Copilot UI to assign it to Copilot Workspace"
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
