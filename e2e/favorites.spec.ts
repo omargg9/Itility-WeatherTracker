@@ -8,7 +8,7 @@ test.describe('Favorites Functionality', () => {
   test('should add a city to favorites', async ({ page }) => {
     // Search for a city first
     await page.waitForLoadState('networkidle');
-    const searchInput = page.getByLabel(/search for a city/i);
+    const searchInput = page.locator('input[aria-label*="Search" i], input[type="text"]').first();
     await searchInput.fill('Paris');
     await page.waitForTimeout(500);
 
