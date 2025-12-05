@@ -46,15 +46,19 @@ jobs:
 
                   Please investigate the issue and create a PR with the necessary fixes."
 
-                  # Create issue with copilot mention
+                  # Create issue with copilot mention (without labels to avoid errors)
                   ISSUE_URL=$(gh issue create \
                     --title "🚨 Automated Test Failure: Run ${{ inputs.test_run_id || github.event.workflow_run.id }}" \
                     --body "$ISSUE_BODY" \
-                    --label "bug,automated" \
                     --repo ${{ github.repository }})
 
                   ISSUE_NUMBER=$(echo $ISSUE_URL | grep -o '[0-9]*$')
                   echo "Created issue #$ISSUE_NUMBER with @copilot mention"
+
+                  # Try to add labels if they exist (don't fail if they don't)
+                  gh issue edit $ISSUE_NUMBER --add-label "bug" --repo ${{ github.repository }} 2>/dev/null || echo "Label 'bug' not found, skipping"
+                  gh issue edit $ISSUE_NUMBER --add-label "automated" --repo ${{ github.repository }} 2>/dev/null || echo "Label 'automated' not found, skipping"
+
                   echo "Visit the issue and use the Copilot UI to assign it to Copilot Workspace"
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
