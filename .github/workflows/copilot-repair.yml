@@ -21,6 +21,9 @@ jobs:
         if: ${{ github.event.workflow_run.conclusion == 'failure' || github.event_name == 'workflow_dispatch' }}
         runs-on: ubuntu-latest
         steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
             - name: Download Test Logs
               run: |
                   RUN_ID="${{ inputs.test_run_id || github.event.workflow_run.id }}"
@@ -28,16 +31,30 @@ jobs:
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-            - name: Create Issue for Copilot
-              uses: dacbd/create-issue-action@v2
-              with:
-                  token: ${{ secrets.GITHUB_TOKEN }}
-                  title: "🚨 Automated Test Failure: Run ${{ github.event.workflow_run.id }}"
-                  body: |
-                      The CI build failed. Please analyze the following error logs and open a Pull Request to fix the failing tests.
+            - name: Create Issue and Assign to Copilot
+              run: |
+                  ERROR_LOGS=$(cat error_log.txt | tail -n 100)
 
-                      **Error Logs:**
-                      ```
-                      $(cat error_log.txt | tail -n 50) 
-                      ```
-                  assignees: copilot # Assigning to Copilot triggers the Agent
+                  ISSUE_BODY="The CI build failed. Please analyze the following error logs and open a Pull Request to fix the failing tests.
+
+                  **Workflow Run:** https://github.com/${{ github.repository }}/actions/runs/${{ inputs.test_run_id || github.event.workflow_run.id }}
+
+                  **Error Logs:**
+                  \`\`\`
+                  ${ERROR_LOGS}
+                  \`\`\`"
+
+                  # Create issue and capture the issue number
+                  ISSUE_URL=$(gh issue create \
+                    --title "🚨 Automated Test Failure: Run ${{ inputs.test_run_id || github.event.workflow_run.id }}" \
+                    --body "$ISSUE_BODY" \
+                    --repo ${{ github.repository }})
+
+                  ISSUE_NUMBER=$(echo $ISSUE_URL | grep -o '[0-9]*$')
+                  echo "Created issue #$ISSUE_NUMBER"
+
+                  # Assign Copilot to the issue
+                  gh copilot assign $ISSUE_NUMBER --repo ${{ github.repository }}
+                  echo "Assigned Copilot to issue #$ISSUE_NUMBER"
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
