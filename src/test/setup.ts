@@ -1,18 +1,8 @@
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 
-// Declare global types for test mocks
-declare global {
-    // eslint-disable-next-line no-var
-    var fetch: ReturnType<typeof vi.fn>;
-    // eslint-disable-next-line no-var
-    var XMLHttpRequest: ReturnType<typeof vi.fn>;
-    // eslint-disable-next-line no-var
-    var Image: ReturnType<typeof vi.fn>;
-}
-
 // Mock fetch to prevent network requests in tests
-global.fetch = vi.fn(() =>
+globalThis.fetch = vi.fn(() =>
     Promise.resolve({
         ok: true,
         status: 200,
@@ -21,7 +11,7 @@ global.fetch = vi.fn(() =>
         blob: async () => new Blob(),
         arrayBuffer: async () => new ArrayBuffer(0),
     } as Response)
-);
+) as typeof fetch;
 
 // Mock XMLHttpRequest to prevent network requests
 class MockXMLHttpRequest {
@@ -38,7 +28,7 @@ class MockXMLHttpRequest {
 }
 
 // @ts-expect-error - Mocking XMLHttpRequest
-global.XMLHttpRequest = vi.fn(() => new MockXMLHttpRequest());
+globalThis.XMLHttpRequest = vi.fn(() => new MockXMLHttpRequest());
 
 // Mock image loading
 const mockImage = {
@@ -54,8 +44,8 @@ const mockImage = {
 };
 
 // @ts-expect-error - Mocking Image constructor
-global.Image = vi.fn(() => mockImage);
+globalThis.Image = vi.fn(() => mockImage);
 
 // Suppress console errors in tests (optional)
-global.console.error = vi.fn();
-global.console.warn = vi.fn();
+globalThis.console.error = vi.fn();
+globalThis.console.warn = vi.fn();
